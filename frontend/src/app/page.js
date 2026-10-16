@@ -1,81 +1,76 @@
-'use client';
+import Link from 'next/link';
 
-import { useState, useEffect } from 'react';
-
-export default function SolVentoDashboard() {
-  const [readings, setReadings] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const fetchTelemetry = async () => {
-    try {
-      const response = await fetch('/api/telemetry');
-      if (!response.ok) throw new Error('No se pudo obtener la información');
-      const data = await response.json();
-      setReadings(data);
-      setLoading(false);
-    } catch (err) {
-      console.error(err);
-      setError('Error al cargar los datos de los sensores');
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchTelemetry();
-    const interval = setInterval(fetchTelemetry, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
+export default function Home() {
   return (
-    <main style={{ padding: '40px', fontFamily: 'Arial, sans-serif', backgroundColor: '#f9f9f9', minHeight: '100vh' }}>
-      
-      {/* ENCABEZADO CON LOGO */}
-      <header style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '30px', borderBottom: '2px solid #ddd', paddingBottom: '15px' }}>
-        <img 
-          src="/logo1.png" 
-          alt="SolVento Logo" 
-          style={{ width: '70px', height: '70px', objectFit: 'contain' }} 
-        />
-        <div>
-          <h1 style={{ color: '#53733d', margin: '0 0 5px 0' }}>SolVento — Panel de Monitoreo</h1>
-          <p style={{ color: '#555', margin: 0 }}>
-            Sistema de energía híbrido eólico-solar para Aldea Los Paxtes, Salamá, Baja Verapaz.
-          </p>
-        </div>
-      </header>
+    <div className="container py-5">
+      {/* Hero Section */}
+      <div className="text-center mx-auto my-5 py-4" style={{ maxWidth: '850px' }}>
+        <span 
+          className="badge rounded-pill px-3 py-2 mb-3 fw-semibold shadow-sm" 
+          style={{ backgroundColor: '#A9BE6F', color: '#FFFFFF', fontSize: '0.85rem' }}
+        >
+          Tecnología & Resiliencia Comunitaria
+        </span>
+        
+        <h1 className="display-4 fw-bold mb-4" style={{ color: '#5F6E35', letterSpacing: '-0.025em' }}>
+          Solvento un proyecto que nace del sol y el viento :)
+        </h1>
+        
+        {/* Texto corregido con color visible y legible */}
+        <p className="lead mb-5" style={{ color: '#4A5629', fontSize: '1.15rem', lineHeight: '1.6' }}>
+          Sistema autónomo eólico-solar diseñado para garantizar respaldo eléctrico, comunicación crítica y monitoreo ambiental en comunidades vulnerables.
+        </p>
 
-      {loading && <p>Cargando lecturas de telemetría...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-
-      {!loading && !error && readings.length === 0 && (
-        <div style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '8px', border: '1px solid #ddd' }}>
-          <p style={{ margin: 0, color: '#666' }}>No hay registros todavía. Esperando datos del módulo SIM900...</p>
-        </div>
-      )}
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
-        {readings.map((reading) => (
-          <div 
-            key={reading.id} 
-            style={{ 
-              backgroundColor: '#ffffff', 
-              padding: '20px', 
-              borderRadius: '8px', 
-              boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
-              borderLeft: '5px solid #27ae60'
-            }}
+        {/* Botones con visibilidad garantizada */}
+        <div className="d-flex justify-content-center gap-3">
+        <Link 
+            href="/datos" 
+            className="btn btn-lg px-4 rounded-pill fw-medium shadow-sm"
+            style={{ borderColor: '#5F6E35', color: '#5F6E35', borderWidth: '2px', backgroundColor: 'transparent' }}
           >
-            <h3 style={{ margin: '0 0 10px 0', color: '#333' }}>Nodo: {reading.nodeId}</h3>
-            <p style={{ margin: '5px 0', color: '#555' }}>💨 <strong>Velocidad Viento:</strong> {reading.windSpeed} m/s</p>
-            <p style={{ margin: '5px 0', color: '#555' }}>☀️ <strong>Voltaje Solar:</strong> {reading.solarVoltage} V</p>
-            <p style={{ margin: '5px 0', color: '#555' }}>🔋 <strong>Batería:</strong> {reading.batteryLevel}%</p>
-            <small style={{ color: '#999', display: 'block', marginTop: '12px' }}>
-              {new Date(reading.createdAt).toLocaleString()}
-            </small>
-          </div>
-        ))}
+            Ver Monitoreo en Vivo
+          </Link>
+          
+          <Link 
+            href="/rastreo" 
+            className="btn btn-lg px-4 rounded-pill fw-medium shadow-sm"
+            style={{ borderColor: '#5F6E35', color: '#5F6E35', borderWidth: '2px', backgroundColor: 'transparent' }}
+          >
+            Ubicación del Nodo
+          </Link>
+        </div>
       </div>
-    </main>
+
+      {/* Cards Informativas */}
+      <div className="row g-4 mt-5">
+        <div className="col-md-4">
+          <div className="card card-figma p-4 h-100">
+            <div className="fs-2 mb-3" style={{ color: '#5F6E35' }}>⚡</div>
+            <h3 className="h5 fw-bold mb-2" style={{ color: '#5F6E35' }}>Generación Híbrida</h3>
+            <p style={{ color: '#525B44' }} className="small mb-0">
+              Aprovechamiento simultáneo de radiación solar y flujo eólico mediante microturbinas optimizadas para entornos off-grid.
+            </p>
+          </div>
+        </div>
+        <div className="col-md-4">
+          <div className="card card-figma p-4 h-100">
+            <div className="fs-2 mb-3" style={{ color: '#5F6E35' }}>📡</div>
+            <h3 className="h5 fw-bold mb-2" style={{ color: '#5F6E35' }}>Telemetría IoT</h3>
+            <p style={{ color: '#525B44' }} className="small mb-0">
+              Transmisión remota de lecturas de tensión y velocidad del viento a través de redes GSM con SIM900 hacia una base centralizada.
+            </p>
+          </div>
+        </div>
+        <div className="col-md-4">
+          <div className="card card-figma p-4 h-100">
+            <div className="fs-2 mb-3" style={{ color: '#5F6E35' }}>🛡️</div>
+            <h3 className="h5 fw-bold mb-2" style={{ color: '#5F6E35' }}>Resiliencia Comunitaria</h3>
+            <p style={{ color: '#525B44' }} className="small mb-0">
+              Garantía de respaldo eléctrico crítico para recarga de dispositivos de emergencia, iluminación y coordinación local.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
