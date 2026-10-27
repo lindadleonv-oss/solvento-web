@@ -13,12 +13,12 @@ export default function Home() {
         </span>
         
         <h1 className="display-4 fw-bold mb-4" style={{ color: '#5F6E35', letterSpacing: '-0.025em' }}>
-          Solvento un proyecto que nace del sol y el viento :)
+        SolVento, Sistema de Generación de Energía Eólica-Solar y Monitoreo Ambiental mediante Tecnología IoT 
         </h1>
         
         {/* Texto corregido con color visible y legible */}
         <p className="lead mb-5" style={{ color: '#4A5629', fontSize: '1.15rem', lineHeight: '1.6' }}>
-          Sistema autónomo eólico-solar diseñado para garantizar respaldo eléctrico, comunicación crítica y monitoreo ambiental en comunidades vulnerables.
+          Sistema autónomo de energía eólica-solar diseñado para garantizar respaldo eléctrico, comunicación crítica y monitoreo ambiental en comunidades vulnerables.
         </p>
 
         {/* Botones con visibilidad garantizada */}
